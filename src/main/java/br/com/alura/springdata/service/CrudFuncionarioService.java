@@ -7,6 +7,10 @@ import br.com.alura.springdata.repository.CargoRepository;
 import br.com.alura.springdata.repository.FuncionarioRepository;
 import br.com.alura.springdata.repository.UnidadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -41,7 +45,7 @@ public class CrudFuncionarioService {
             int action = scanner.nextInt();
             switch (action){
                 case 1:
-                    visualizar();
+                    visualizar(scanner);
                     break;
                 case 2:
                     cadastrar(scanner);
@@ -61,6 +65,18 @@ public class CrudFuncionarioService {
 
     private void visualizar() {
         Iterable<Funcionario> it = repository.findAll();
+        it.forEach(System.out::println);
+    }
+
+    private void visualizar(Scanner scanner) {
+        System.out.println("Qual página deseja ver:");
+        int intPage = scanner.nextInt();
+        //Pageable pageable = PageRequest.of(intPage, 5, Sort.unsorted());
+        Pageable pageable = PageRequest.of(intPage, 5, Sort.by("nome")); //Sort.Direction.ASC,
+        Page<Funcionario> it = repository.findAll(pageable);
+        System.out.println(it);
+        System.out.println("Você esta na página: "+it.getNumber());
+        System.out.println("Total de elementos: "+it.getTotalElements());
         it.forEach(System.out::println);
     }
 
