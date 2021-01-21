@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -26,6 +27,7 @@ public class CrudFuncionarioService {
     private UnidadeRepository unidadeRepository;
 
     private boolean system = true;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public void inicial(Scanner scanner){
         while (system){
@@ -74,13 +76,17 @@ public class CrudFuncionarioService {
         System.out.println("Digite o salario: ");
         BigDecimal salario = scanner.nextBigDecimal();
 
+        System.out.println("Digite a data de contratação: ");
+        String data = scanner.next();
+        LocalDate dataContratacao = LocalDate.parse(data, formatter);
+
         System.out.println("Digite o id do cargo: ");
         Integer idCargo = scanner.nextInt();
 
         Optional<Cargo> cargo  = cargoRepository.findById(idCargo);
         funcionario.setNome(nome);
         funcionario.setCargo(cargo.get());
-        funcionario.setDataContratacao(LocalDate.now());
+        funcionario.setDataContratacao(dataContratacao);
         funcionario.setSalario(salario);
         funcionario.setCpf(cpf);
         List<UnidadeTrabalho> unidades = escolherUnidades(scanner);
