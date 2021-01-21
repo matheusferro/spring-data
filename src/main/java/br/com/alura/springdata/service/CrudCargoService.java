@@ -45,7 +45,7 @@ public class CrudCargoService {
         }
     }
 
-    public void cadastrar(Scanner scanner){
+    private void cadastrar(Scanner scanner){
         System.out.println("Descrição do cargo: ");
         String desc = scanner.next();
         Cargo cargo = new Cargo();
@@ -63,7 +63,7 @@ public class CrudCargoService {
         it.forEach(System.out::println);
     }
 
-    public void alterar(Scanner scanner) {
+    private void alterar(Scanner scanner) {
         Iterable<Cargo> it = cargoRepository.findAll();
         if(!it.iterator().hasNext()){
             System.out.println("Sem dados para alterar!!!");
@@ -83,7 +83,7 @@ public class CrudCargoService {
         System.out.println("Alterado");
     }
 
-    public void excluir(Scanner scanner) {
+    private void excluir(Scanner scanner) {
         Iterable<Cargo> it = cargoRepository.findAll();
         if(!it.iterator().hasNext()){
             System.out.println("Sem dados para excluir!!!");
