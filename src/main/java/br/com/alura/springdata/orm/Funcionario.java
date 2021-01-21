@@ -96,6 +96,7 @@ public class Funcionario {
             unidades.append(un.getDescricao()).append(" - ").append(un.getEndereco());
             unidades.append("  ");
         }
-        return "ID:" + id + "  NOME:" + nome + "  CPF:" + cpf + "  CARGO:" + cargo.getDescricao() + "  UNIDADES:" + unidades;
+        return "ID:" + id + "  NOME:" + nome + "  CPF:" + cpf + " SALARIO:"+salario+" CARGO:" + cargo.getDescricao()
+                + " DATA DE CONTRATAÇÃO:"+dataContratacao+" UNIDADES:" + unidades;
     }
 }
